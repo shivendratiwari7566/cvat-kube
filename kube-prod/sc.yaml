@@ -1,0 +1,9 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: cvat-prod
+provisioner: example.com/external-nfs
+parameters:
+  server: 10.40.41.57  #nfs-server.example.com
+  path: /home/apexon/nfs-storage
+  readOnly: "false"

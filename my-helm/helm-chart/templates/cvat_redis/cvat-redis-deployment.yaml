@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.version: 1.26.1 (a9d05d509)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: cvat-redis
+  name: cvat-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: cvat-redis
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.version: 1.26.1 (a9d05d509)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/cvat: "true"
+        io.kompose.service: cvat-redis
+    spec:
+      containers:
+        - image: redis:4.0-alpine
+          #imagePullPolicy: Never
+          name: cvat-redis
+          env:
+            - name: NFS_SERVER
+              value: 10.40.41.57
+            - name: NFS_PATH
+              value: /home/apexon/nfs-storage
+          resources: {}
+          # command: ["/bin/sh"]
+          # args: ["-c", "echo never > /sys/kernel/mm/transparent_hugepage/enabled"]
+      restartPolicy: Always
+status: {}

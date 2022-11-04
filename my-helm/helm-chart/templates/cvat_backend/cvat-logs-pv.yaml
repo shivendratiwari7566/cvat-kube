@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: cvat-logs
+spec:
+  capacity:
+   storage: 10Gi
+  accessModes:
+   - ReadWriteOnce
+   - ReadOnlyMany
+   - ReadWriteMany
+  hostPath:
+    path: "/tmp/cvat-logs/"
+  # volumeMode: Filesystem
+  # nfs:
+  #   server: 10.40.41.57
+  #   path: /home/apexon/nfs-storage/cvat-logs
+  #   readOnly: no
+  # mountOptions:
+  #   - hard
+  #   - nfsvers=4.1
+  claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cvat-logs
+      namespace: default

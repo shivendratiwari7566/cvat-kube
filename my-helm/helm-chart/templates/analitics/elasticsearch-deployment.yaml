@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.version: 1.26.1 (a9d05d509)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: elasticsearch
+  name: elasticsearch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: elasticsearch
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.version: 1.26.1 (a9d05d509)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/cvat: "true"
+        io.kompose.service: elasticsearch
+    spec:
+      containers:
+        - image: 10.40.41.59:5000/apexon-cvat_elasticsearch   #apexon/prod:cvat_elasticsearch
+          # cvat_elasticsearch
+          #imagePullPolicy: Never
+          name: cvat-elasticsearch
+          resources: {}
+          volumeMounts:
+            - mountPath: /usr/share/elasticsearch/data
+              name: cvat-events
+      restartPolicy: Always
+      volumes:
+        - name: cvat-events
+          persistentVolumeClaim:
+            claimName: cvat-events
+status: {}
+

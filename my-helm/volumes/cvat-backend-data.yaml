@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: cvat-backend-data
+spec:
+ # storageClassName: manual
+  capacity:
+   storage: 22Gi
+  accessModes:
+   - ReadWriteOnce
+   - ReadOnlyMany
+   - ReadWriteMany
+  # hostPath:
+  #   path: "/mnt/data01"
+  volumeMode: Filesystem
+  nfs:
+  server: 10.40.41.57
+  path: /home/apexon/nfs-storage/cvat-backend-data
+  readOnly: no
+  mountOptions:
+  - hard
+  - nfsvers=4.1
+  claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cvat-backend-data
+      namespace: default

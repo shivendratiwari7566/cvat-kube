@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: cvat-opa-claim0
+  name: cvat-opa-claim0
+  namespace: cvat-prod
+spec:
+  storageClassName: cvat-prod
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}

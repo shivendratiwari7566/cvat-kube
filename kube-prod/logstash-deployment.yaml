@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.version: 1.26.1 (a9d05d509)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: logstash
+  name: logstash
+  namespace: cvat-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: logstash
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.version: 1.26.1 (a9d05d509)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/cvat: "true"
+        io.kompose.service: logstash
+    spec:
+      containers:
+        - env:
+            - name: LOGSTASH_OUTPUT_HOST
+              value: elasticsearch:9200
+            - name: NFS_SERVER
+              value: 10.40.41.57
+            - name: NFS_PATH
+              value: /home/apexon/nfs-storage
+          image: 10.40.41.59:5000/apexon-cvat_logstash  #cvat_logstash
+          #imagePullPolicy: Never
+          name: cvat-logstash
+          resources: {}
+      restartPolicy: Always
+status: {}
